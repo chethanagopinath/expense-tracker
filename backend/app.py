@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_cors import CORS
 
 
 app = Flask(__name__)
@@ -8,6 +9,7 @@ app.app_context().push()
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://expenseuser:passwrd@localhost/expense_tracker"
 db = SQLAlchemy(app)
+CORS(app)
 
 #id, created_at, description, amount, category
 class Expense(db.Model):
