@@ -65,6 +65,33 @@ def get_expenses():
 
     return expenses_list
 
+@app.route("/expense/<int:id>", methods=["PUT"])
+def edit_expense(id):
+    expense = Expense.query.filter(Expense.id == id).first()
+    expense.description = request.json["description"]
+    expense.amount = request.json["amount"]
+    expense.category = request.json["category"]
+
+    db.session.add(expense)
+    db.session.commit()
+
+    updated_expense = {
+        "description": expense.description,
+        "amount": expense.amount,
+        "category": expense.category,
+    }
+
+    return updated_expense
+
+@app.route("/expense/<int:id>", methods=["DELETE"])
+def delete_expense(id):
+    expense = Expense.query.filter(Expense.id == id).first()
+    db.session.delete(expense)
+    db.session.commit()
+
+    return f"Expense with id {id} deleted successfully"
+
+
 # @app.route("/")
 # def hello_world():
 #     return "HELLO WORLD"
