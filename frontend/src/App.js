@@ -9,8 +9,13 @@ function App() {
   const [amount, setAmount] = useState(0.0)
   const [category, setCategory] = useState("")
   const [expensesList, setExpensesList] = useState([])
+  const [quote, setRandomQuote] = useState("")
+  const quotes = ["Being rich is having money; being wealthy is having time — Margaret Bonanno", "The only man who never makes mistakes is the man who never does anything. ― Theodore Roosevelt", "A dream doesn't become reality through magic; it takes sweat, determination and hard work.” ― Colin Powell"]
+  const getRandomQuote = () => {
+    setRandomQuote(quotes[Math.floor(Math.random() * quotes.length)])
+  }
 
-  const handleDescription = e => {
+    const handleDescription = e => {
     setDescription(e.target.value)
   }
 
@@ -42,6 +47,7 @@ function App() {
 
   useEffect(() => {
     fetchExpenses()
+    getRandomQuote()
   }, [])
 
   return (
@@ -75,6 +81,9 @@ function App() {
           />
           <button type="submit">Submit</button>
         </form>
+        <div>
+          
+        </div>
       </section>
       <section>
         <h3>Expenses</h3>
