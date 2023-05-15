@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from "axios";
+import { Button, Card, CardContent, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 
 import './App.css';
 import MyTable from './components/MyTable';
@@ -52,43 +53,61 @@ function App() {
 
   return (
     <div className="App">
-      <section>
-        <form onSubmit={handleSubmit}>
-          {/* description, amount and category  */}
-          <label htmlFor="description">Description</label>
-          <input
-            onChange={handleDescription} 
-            type="text"
-            name="description"
-            id="description"
-            value={description}
-          />
-          <label htmlFor="amount">Amount</label>
-          <input
-            onChange={handleAmount}
-            type="number"
-            name="amount"
-            id="amount"
-            value={amount}
-          />
-          <label htmlFor="category">Category</label>
-          <input 
-            onChange={handleCategory}
-            type="text"
-            name="category"
-            id="category"
-            value={category}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <div>
-          
-        </div>
-      </section>
-      <section>
+      <Grid container spacing={2}>
+        <Grid xs={7} direction="column">
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <div className='expense-form-fields'>
+              <TextField 
+                onChange={handleDescription} 
+                id="expense-description" 
+                label="Description" 
+                required
+                size='small'
+                variant='filled'
+                value={description}
+              /><br/><br/>
+              <TextField 
+                onChange={handleAmount} 
+                id="expense-amount" 
+                label="Amount" 
+                required
+                size='small'
+                variant='filled'
+                value={amount}
+              /><br/><br/>
+              {/* <InputLabel id="expense-category">Category</InputLabel> */}
+              <Select
+                id="expense-category"
+                value={category}
+                label="Category"
+                variant="filled"
+                onChange={handleCategory}
+              >
+                <MenuItem value="Housing">Housing</MenuItem>
+                <MenuItem value="Groceries">Groceries</MenuItem>
+                <MenuItem value="Miscellaneous">Miscellaneous</MenuItem>
+                <MenuItem value="Utilities">Utilities</MenuItem>
+                <MenuItem value="Savings">Savings</MenuItem>
+                <MenuItem value="Food & Drink">Food & Drink</MenuItem>
+              </Select><br/><br/>
+            </div>
+            <Button onClick={handleSubmit} variant="contained" size="submit">Submit</Button>
+          </FormControl>
+        </Grid>
+        <Grid xs={5} direction="column">
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div"> 
+                {quote}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+      <div className='expenses-table'>
         <h3>Expenses</h3>
         <MyTable expenses={expensesList} />
-      </section>
+      </div>
     </div>
   );
 }
